@@ -1,11 +1,7 @@
 """Models for Locations."""
 from uuid import uuid4
 from django.db import models
-#from helpers.misc import get_url_friendly
 from locations.management.commands.adj_updater import UpdateAdjList
-
-from django.contrib.auth.models import User
-from django.utils.timezone import now
 
 def get_url_friendly(name):
     """Converts the name to a url friendly string for use in `str_id`"""
@@ -18,6 +14,7 @@ def get_url_friendly(name):
 
     # Remove special characters except dashes
     return "".join(c for c in temp if c.isalnum() or c == "-")
+
 
 class Location(models.Model):
     """A unique location, chiefly venues for events.
@@ -131,135 +128,3 @@ class LocationLocationDistance(models.Model):
     class Meta:
         verbose_name = "Location-Location Distance"
         verbose_name_plural = "Location-Location Distances"
-        
-
-class UserProfile(models.Model):
-    """Profile of a unique user."""
-
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    last_ping = models.DateTimeField(default=now)
-
-    # Linked Django User object
-    user = models.OneToOneField(
-        User, related_name="profile", on_delete=models.CASCADE, null=True, blank=True
-    )
-
-    # Basic info from SSO
-    name = models.CharField(max_length=50, blank=True)
-    roll_no = models.CharField(max_length=30, null=True, blank=True)
-    ldap_id = models.CharField(max_length=50, null=True, blank=True)
-    profile_pic = models.URLField(null=True, blank=True)
-
-    # Advanced info from SSO
-    contact_no = models.CharField(max_length=30, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-    department = models.CharField(max_length=30, null=True, blank=True)
-    department_name = models.CharField(max_length=200, null=True, blank=True)
-    degree = models.CharField(max_length=200, null=True, blank=True)
-    degree_name = models.CharField(max_length=200, null=True, blank=True)
-    join_year = models.CharField(max_length=5, null=True, blank=True)
-    graduation_year = models.CharField(max_length=5, null=True, blank=True)
-    hostel = models.CharField(max_length=100, null=True, blank=True)
-    room = models.CharField(max_length=30, null=True, blank=True)
-
-    # InstiApp feature fields
-    active = models.BooleanField(default=True)
-    followed_bodies = models.ManyToManyField(
-        "bodies.Body", related_name="followers", blank=True
-    )
-    # InstiApp roles
-    roles = models.ManyToManyField("roles.BodyRole", related_name="users", blank=True)
-    former_roles = models.ManyToManyField(
-        "roles.BodyRole",
-        related_name="former_users",
-        blank=True,
-        through="UserFormerRole",
-    )
-    institute_roles = models.ManyToManyField(
-        "roles.InstituteRole", related_name="users", blank=True
-    )
-    # community_roles = models.ManyToManyField('roles.CommunityRole', related_name='users', blank=True)
-    # User exposed fields
-    show_contact_no = models.BooleanField(default=False)
-    fcm_id = models.CharField(max_length=200, null=True, blank=True)
-    about = models.TextField(blank=True, null=True)
-    android_version = models.IntegerField(default=0)
-    website_url = models.URLField(blank=True, null=True)
-
-BAN_REASON_CHOICHES = [
-    ("IDF", "Unappropriate Comment"),
-    ("Buy&Sell", "Unappropriate Activity in Buy and Sell"),
-    ("Graduated ", "Passed out from Institute"),
-    ("InstiBan", "Banned by Insittute Authority"),
-]
-
-BAN_DURATION_CHOICES = [
-    ("1 month", "One Month"),
-    ("3 months", "Three Months"),
-    ("6 months", "Six Months"),
-    ("12 months", "Twelve Months"),
-    ("Permanent", "Permanent"),
-]
-
-class SSOBan(models.Model):
-    """Bans imposed on students to access any SSO required View."""
-
-    id = models.UUIDField(primary_key=True, default=uuid4, blank=False)
-    banned_user = models.ForeignKey(
-        to="users.UserProfile",
-        related_name="banned_user",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    time_of_creation = models.DateTimeField(auto_now_add=True)
-    reason = models.CharField(max_length=30, choices=BAN_REASON_CHOICHES)
-    detailed_reason = models.TextField(blank=True)
-    duration_of_ban = models.CharField(max_length=20, choices=BAN_DURATION_CHOICES)
-    banned_by = models.ForeignKey(
-        to="users.UserProfile",
-        related_name="banned_by",
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-    )
-    banned_user_ldapid = models.CharField(max_length=20, blank=True, null=True)
-
-    def save(self, *args, **kwargs) -> None:
-        if self.banned_user_ldapid:
-            self.banned_user = UserProfile.objects.get(ldap_id=self.banned_user_ldapid)
-        return super().save(*args, **kwargs)
-    
-class Body(models.Model):
-    """An organization or club which may conduct events."""
-
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    str_id = models.CharField(max_length=50, editable=False, null=True)
-    time_of_creation = models.DateTimeField(auto_now_add=True)
-    time_of_modification = models.DateTimeField(auto_now=True)
-
-    name = models.CharField(max_length=50)
-    canonical_name = models.CharField(max_length=50, blank=True)
-    short_description = models.CharField(max_length=50, blank=True)
-    description = models.TextField(blank=True)
-    website_url = models.URLField(blank=True, null=True)
-    image_url = models.URLField(blank=True, null=True)
-    cover_url = models.URLField(blank=True, null=True)
-    blog_url = models.URLField(null=True, blank=True)
-
-    def save(self, *args, **kwargs):  # pylint: disable=W0222
-        self.str_id = get_url_friendly(
-            self.name if not self.canonical_name else self.canonical_name
-        )
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return "/org/" + self.str_id
-
-    class Meta:
-        verbose_name = "Body"
-        verbose_name_plural = "Bodies"
-        ordering = ("name",)

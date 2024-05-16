@@ -17,8 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from django.conf import settings
+
+def api_base(prefix=None):
+    """Get the base URL for an endpoint set."""
+    if prefix is None:
+        return "api/"
+    return "api/%s/" % prefix
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('locations/', include('locations.urls'))
+    path(api_base(), include('locations.urls'))
 ]
+
