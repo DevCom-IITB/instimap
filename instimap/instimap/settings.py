@@ -65,6 +65,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                # Ensure this line is correct and points to valid libraries
+                'rest_framework': 'rest_framework.templatetags.rest_framework',
+            }
         },
     },
 ]
