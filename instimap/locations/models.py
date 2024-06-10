@@ -15,6 +15,50 @@ def get_url_friendly(name):
     # Remove special characters except dashes
     return "".join(c for c in temp if c.isalnum() or c == "-")
 
+PERMISSION_CHOICES = (
+    ("AddE", "Add Event"),
+    ("UpdE", "Update Event"),
+    ("DelE", "Delete Event"),
+    ("UpdB", "Update Body"),
+    ("Role", "Modify Roles"),
+    ("VerA", "Verify Achievements"),
+    ("AppP", "Moderate Post"),
+    ("ModC", "Moderate Comment"),
+)
+
+class Body(models.Model):
+    """An organization or club which may conduct events."""
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    str_id = models.CharField(max_length=50, editable=False, null=True)
+    time_of_creation = models.DateTimeField(auto_now_add=True)
+    time_of_modification = models.DateTimeField(auto_now=True)
+
+    name = models.CharField(max_length=50)
+    canonical_name = models.CharField(max_length=50, blank=True)
+    short_description = models.CharField(max_length=50, blank=True)
+    description = models.TextField(blank=True)
+    website_url = models.URLField(blank=True, null=True)
+    image_url = models.URLField(blank=True, null=True)
+    cover_url = models.URLField(blank=True, null=True)
+    blog_url = models.URLField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):  # pylint: disable=W0222
+        self.str_id = get_url_friendly(
+            self.name if not self.canonical_name else self.canonical_name
+        )
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return "/org/" + self.str_id
+
+    class Meta:
+        verbose_name = "Body"
+        verbose_name_plural = "Bodies"
+        ordering = ("name",)
 
 class Location(models.Model):
     """A unique location, chiefly venues for events.
@@ -112,6 +156,55 @@ class Location(models.Model):
             ),
             models.Index(fields=["reusable", "group_id"]),
         ]
+
+class BodyRole(models.Model):
+    """A role for a bodywhich can be granted to multiple users."""
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    time_of_creation = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=50)
+    body = models.ForeignKey(
+        "Body", on_delete=models.CASCADE, related_name="roles"
+    )
+    inheritable = models.BooleanField(default=False)
+    # permissions = MultiSelectField(choices=PERMISSION_CHOICES)
+    priority = models.IntegerField(default=0)
+    official_post = models.BooleanField(default=True)
+    permanent = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Body Role"
+        verbose_name_plural = "Body Roles"
+        ordering = ("body__name", "priority")
+
+    def __str__(self):
+        return self.body.name + " " + self.name
+
+INSTITUTE_PERMISSION_CHOICES = (
+    ("AddB", "Add Body"),
+    ("DelB", "Delete Body"),
+    ("BodyChild", "Modify Body-Child Relations"),
+    ("Location", "Full control over locations"),
+    ("Role", "Modify Institute Roles"),
+    ("RoleB", "Modify roles for any body"),
+)
+
+
+class InstituteRole(models.Model):
+    """An institute role which can be granted to multiple users."""
+
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    time_of_creation = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100, blank=True)
+    # permissions = MultiSelectField(choices=INSTITUTE_PERMISSION_CHOICES)
+
+    class Meta:
+        verbose_name = "Institute Role"
+        verbose_name_plural = "Institute Roles"
+
+    def __str__(self):
+        return self.name
 
 
 class LocationLocationDistance(models.Model):
