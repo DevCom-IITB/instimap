@@ -91,6 +91,8 @@ class Location(models.Model):
         related_name="adjacent_loc",
         blank=True,
     )
+    eatery = models.BooleanField(default=False)
+    hostel = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):  # pylint: disable =W0222
         self.str_id = get_url_friendly(self.short_name)
