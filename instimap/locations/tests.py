@@ -3,21 +3,22 @@ from django.utils import timezone
 import time
 import random
 from rest_framework.test import APITestCase
+from rest_framework import status
 # from events.models import Event
 from django.contrib.auth.models import User
+from locations.serializers import LocationSerializer
 from locations.models import Location
-from locations.models import Body, BodyRole, InstituteRole
+from locations.models import Body, BodyRole, InstituteRole,UserProfile
 # from bodies.models import Body
 
 from uuid import uuid4
 from django.db import models
-from multiselectfield import MultiSelectField
 
 def get_new_user():
     user = User.objects.create(
-        username="TestUser" + str(time.time() + random.randint(1, 2e6))
+        username="TestUser" + str(time.time() + random.randint(1, int(2e6)))
     )
-    # UserProfile.objects.create(name="TestUserProfile", user=user, ldap_id="test")
+    UserProfile.objects.create(name="TestUserProfile", user=user, ldap_id="test")
     return user
 
 def get_url_friendly(name):
@@ -40,14 +41,14 @@ class LocationTestCase(APITestCase):
 
     def setUp(self):
     #     # Fake authenticate
-    #     self.user = get_new_user()
-    #     self.client.force_authenticate(self.user)  # pylint: disable=E1101
+        self.user = get_new_user()
+        self.client.force_authenticate(self.user)  # pylint: disable=E1101
 
         self.test_body_1 = Body.objects.create(name="TestBody1")
         self.body_1_role = BodyRole.objects.create(
             name="Body1Role", body=self.test_body_1
         )
-    #     self.user.profile.roles.add(self.body_1_role)
+        # self.user.profile.roles.add(self.body_1_role)
 
         self.insti_role = InstituteRole.objects.create(
             name="InstiRole"
@@ -123,19 +124,27 @@ class LocationTestCase(APITestCase):
     #         self.reusable_test_location,
     #     )
 
-    # def test_location_create(self):
-    #     """Test if location can be created with institute role."""
+    def test_location_create(self):
+        """Test if location can be created with institute role."""
 
-    #     url = "/api/locations"
-    #     data = {"name": "TestEvent1", "reusable": "true"}
+        url = "/api/locations"
+        data = {"name": "TestEvent1", "reusable": "true"}
 
-    #     response = self.client.post(url, data, format="json")
-    #     self.assertEqual(response.status_code, 403)
+        # response = self.client.post(url, data, format="json")
+        # self.assertEqual(response.status_code, 403)
 
-    #     self.user.profile.institute_roles.add(self.insti_role)
-    #     response = self.client.post(url, data, format="json")
-    #     self.assertEqual(response.status_code, 201)
-    #     self.user.profile.institute_roles.remove(self.insti_role)
+        # self.user.profile.institute_roles.add(self.insti_role)
+        # self.user.profile.can_create_locations = True
+        # self.user.profile.save()
+
+        
+        response = self.client.post(url, data, format="json")
+        self.assertEqual(response.status_code, 201)
+        
+        # self.user.profile.can_create_locations = False
+        # self.user.profile.save()
+        
+        # self.user.profile.institute_roles.remove(self.insti_role)
 
     # def test_location_update(self):
     #     """Test if location can be updated with body role or insti role."""
@@ -166,16 +175,50 @@ class LocationTestCase(APITestCase):
     #     self.assertEqual(response.status_code, 200)
     #     self.user.profile.institute_roles.remove(self.insti_role)
 
-    # def test_location_delete(self):
-    #     """Check if location can be deleted with insti role."""
+    def test_location_delete(self):
+        """Check if location can be deleted with insti role."""
 
-    #     location = Location.objects.create(name="TL", reusable=False)
-    #     url = "/api/locations/" + str(location.id)
+        location = Location.objects.create(name="TL", reusable=False)
+        url = "/api/locations/" + str(location.id)
 
-    #     response = self.client.delete(url, format="json")
-    #     self.assertEqual(response.status_code, 403)
+        # response = self.client.delete(url, format="json")
+        # self.assertEqual(response.status_code, 403)
 
-    #     self.user.profile.institute_roles.add(self.insti_role)
-    #     response = self.client.delete(url, format="json")
-    #     self.assertEqual(response.status_code, 204)
-    #     self.user.profile.institute_roles.remove(self.insti_role)
+        # self.user.profile.institute_roles.add(self.insti_role)
+        response = self.client.delete(url, format="json")
+        self.assertEqual(response.status_code, 204)
+        # self.user.profile.institute_roles.remove(self.insti_role)
+    
+    def test_nearest_points(self):
+        '''Test if nearest location is returned'''
+        url = '/api/nearest/'
+        data = {'xcor':2000,'ycor':2000}
+        location1 = Location.objects.create(name="TestLocation1", pixel_x=2000, pixel_y=2000)
+        location2 = Location.objects.create(name="TestLocation2", pixel_x=2001, pixel_y=2000)
+        location3 = Location.objects.create(name="TestLocation3", pixel_x=2002, pixel_y=2000)
+        response = self.client.post(url,data,format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        
+        nearest_location = response.data[0]
+        second_nearest_location = response.data[1]
+        location1_data = LocationSerializer(location1).data
+        location2_data = LocationSerializer(location2).data
+        self.assertEqual(location1_data, nearest_location)
+        self.assertEqual(location2_data, second_nearest_location)
+
+    # def test_shortest_path(self):
+    #     '''Test if shortest path is returned'''
+    #     url = '/api/shortestpath/'
+    #     data = {'origin':'TestLocation1','destination':'TestLocation2'}
+    #     location1 = Location.objects.create(name="TestLocation1", pixel_x=2000, pixel_y=2000)
+    #     location2 = Location.objects.create(name="TestLocation2", pixel_x=2100, pixel_y=2100)
+    #     location3 = Location.objects.create(name="TestLocation3", pixel_x=2200, pixel_y=2200)
+        
+    #     node1 = Location.objects.create(name="Node1", pixel_x=2050, pixel_y=2050)
+    #     node2 = Location.objects.create(name="Node2", pixel_x=2150, pixel_y=2150)
+        
+    #     response = self.client.post(url,data,format='json')
+    #     expected_distance = int(((location2.pixel_x - location1.pixel_x) ** 2 + (location2.pixel_y - location1.pixel_y) ** 2) ** 0.5)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #     self.assertEqual(response.data,expected_distance,msg=f"Expected distance {expected_distance}, got {response.data}")

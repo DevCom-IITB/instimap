@@ -23,6 +23,11 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+    
+    def create(self,request,*args,**kwargs):
+        # if not can_create_location(request.user):
+        #     return Response(data={"detail": "No permission to create location"}, status=403)
+        return super().create(request,*args,**kwargs)
 
     @staticmethod
     def list(request):
@@ -37,11 +42,11 @@ class LocationViewSet(viewsets.ModelViewSet):
         return Response(LocationSerializer(queryset, many=True).data)
 
     # @insti_permission_required("Location")
-    # def create(self, request):
-    #     """Create a Location.
-    #     Needs 'Location' institute permission."""
+    def create(self, request):
+        """Create a Location.
+        Needs 'Location' institute permission."""
 
-    #     return super().create(request)
+        return super().create(request)
 
     # @login_required_ajax
     # def update(self, request, pk):
@@ -73,11 +78,11 @@ class LocationViewSet(viewsets.ModelViewSet):
     #     return super().update(request, pk)
 
     # @insti_permission_required("Location")
-    # def destroy(self, request, pk):
-    #     """Delete a Location.
-    #     Needs 'Location' institute permission."""
+    def destroy(self, request, pk):
+        """Delete a Location.
+        Needs 'Location' institute permission."""
 
-    #     return super().destroy(request, pk)
+        return super().destroy(request, pk)
 
 
 """
@@ -167,6 +172,7 @@ Finding the nearest two points for a given set of coordinates.
 def nearest_points(request):
     xcor = request.data["xcor"]
     ycor = request.data["ycor"]
+    # print(xcor, ycor)
 
     locations = {}
     if xcor is not None and ycor is not None:
