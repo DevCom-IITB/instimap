@@ -1003,7 +1003,9 @@
             "pixel_y": 1257,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -1022,7 +1024,9 @@
             "pixel_y": 849,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -3131,7 +3135,9 @@
             "pixel_y": 1824,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -3625,7 +3631,9 @@
             "pixel_y": 946,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -4784,7 +4792,9 @@
             "pixel_y": 1059,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -5335,7 +5345,9 @@
             "pixel_y": 800,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -5943,7 +5955,9 @@
             "pixel_y": 1368,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -6209,7 +6223,9 @@
             "pixel_y": 2106,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -6304,7 +6320,9 @@
             "pixel_y": 1050,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -6893,7 +6911,9 @@
             "pixel_y": 1547,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -8223,7 +8243,9 @@
             "pixel_y": 2130,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -9287,7 +9309,9 @@
             "pixel_y": 1077,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -9515,7 +9539,9 @@
             "pixel_y": 858,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -9952,7 +9978,9 @@
             "pixel_y": 1180,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -10332,7 +10360,9 @@
             "pixel_y": 667,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -10484,7 +10514,9 @@
             "pixel_y": 1000,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -11054,7 +11086,9 @@
             "pixel_y": 745,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -11187,7 +11221,9 @@
             "pixel_y": 769,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -11719,7 +11755,9 @@
             "pixel_y": 1201,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -12232,7 +12270,9 @@
             "pixel_y": 2474,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -12923,10 +12963,10 @@
         "model": "locations.location",
         "pk": "be22dec9-07a1-45f0-b1d2-9920712f09ae",
         "fields": {
-            "str_id": "chayoos-som",
+            "str_id": "chaayos-som",
             "time_of_creation": "2018-06-24T19:50:18.298Z",
-            "name": "Chayoos near SOM",
-            "short_name": "Chayoos SOM",
+            "name": "Chaayos Near SOM",
+            "short_name": "Chaayos SOM",
             "description": "",
             "parent": null,
             "parent_relation": null,
@@ -12935,7 +12975,9 @@
             "pixel_y": 1784,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -13125,7 +13167,9 @@
             "pixel_y": 2154,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": true,
+            "hostel": false
         }
     },
     {
@@ -13391,7 +13435,9 @@
             "pixel_y": 2342,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -13866,7 +13912,9 @@
             "pixel_y": 727,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -13942,7 +13990,9 @@
             "pixel_y": 867,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -14189,7 +14239,9 @@
             "pixel_y": 970,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -14797,7 +14849,9 @@
             "pixel_y": 870,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -15842,7 +15896,9 @@
             "pixel_y": 932,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -15861,7 +15917,9 @@
             "pixel_y": 942,
             "lat": null,
             "lng": null,
-            "reusable": true
+            "reusable": true,
+            "eatery": false,
+            "hostel": true
         }
     },
     {
@@ -18136,6 +18194,146 @@
             "lat" : null,
             "lng" : null,
             "reusable" : false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "198d242f-5cf6-4a2a-9c52-d220f7dd7c37",
+        "fields" : {
+            "str_id" : "h2-canteen",
+            "time_of_creation" : "2024-06-12T15:32:51.387Z",
+            "name" : "H2 Canteen",
+            "short_name" : "H2 Canteen",
+            "description" : null,
+            "parent" : null,
+            "parent_relation" : null,
+            "group_id" : null,
+            "pixel_x" : 3547,
+            "pixel_y" : 1038,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "55161ffd-e54d-4b4a-a1e0-3948a6f407f8",
+        "fields" : {
+            "str_id" : "civil-cafe",
+            "time_of_creation" : "2024-06-12T15:34:45.186Z",
+            "name" : "Civil Cafe",
+            "short_name" : "Civil Cafe",
+            "description" : null,
+            "parent" : "39c0b4e7-ec49-45db-8f9e-3a64b500aa1f",
+            "parent_relation" : "Inside",
+            "group_id" : null,
+            "pixel_x" : 3879,
+            "pixel_y" : 1804,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "44981f8f-21df-4d52-8a4a-1bbc3848c707",
+        "fields" : {
+            "str_id" : "gg-canteen",
+            "time_of_creation" : "2024-06-12T15:35:44.682Z",
+            "name" : "GG Canteen",
+            "short_name" : "GG Canteen",
+            "description" : null,
+            "parent" : "c4042869-13ef-40b2-9d77-ae39bee31d03",
+            "parent_relation" : "Inside",
+            "group_id" : null,
+            "pixel_x" : 3668,
+            "pixel_y" : 1937,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "960bba66-1a8d-4c96-8140-01fa8ad610ed",
+        "fields" : {
+            "str_id" : "library-cafetaria",
+            "time_of_creation" : "2024-06-12T15:36:39.552Z",
+            "name" : "Library Cafetaria",
+            "short_name" : "Library Cafetaria",
+            "description" : null,
+            "parent" : "a68e2e07-bec6-4664-961f-bf412cb0c6b9",
+            "parent_relation" : "Inside",
+            "group_id" : null,
+            "pixel_x" : 3820,
+            "pixel_y" : 1455,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "db54640f-fb22-46c1-b22a-245b13cb41a0",
+        "fields" : {
+            "str_id" : "h3-canteen",
+            "time_of_creation" : "2024-06-12T15:37:37.177Z",
+            "name" : "H3 Canteen",
+            "short_name" : "H3 Canteen",
+            "description" : null,
+            "parent" : null,
+            "parent_relation" : null,
+            "group_id" : null,
+            "pixel_x" : 3340,
+            "pixel_y" : 979,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "729c7199-faf4-4636-a40c-4e139fa28ee3",
+        "fields" : {
+            "str_id" : "fruit-juice-center",
+            "time_of_creation" : "2024-06-12T15:40:15.079Z",
+            "name" : "Fruit and Fruit Juice Center",
+            "short_name" : "Fruit Juice Center",
+            "description" : null,
+            "parent" : null,
+            "parent_relation" : null,
+            "group_id" : null,
+            "pixel_x" : 3389,
+            "pixel_y" : 1011,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
+        }
+    },{
+        "model" : "locations.location",
+        "pk" : "8c9e9419-2d77-44b5-b8ce-3df3519f880b",
+        "fields" : {
+            "str_id" : "h5-canteen",
+            "time_of_creation" : "2024-06-12T15:41:02.647Z",
+            "name" : "H5 Canteen",
+            "short_name" : "H5 Canteen",
+            "description" : null,
+            "parent" : "d028d244-e087-4a98-a3a3-296e26ae5245",
+            "parent_relation" : "Inside",
+            "group_id" : null,
+            "pixel_x" : 2820,
+            "pixel_y" : 970,
+            "lat" : null,
+            "lng" : null,
+            "reusable" : false,
+            "eatery": true,
+            "hostel": false
         }
     }
 ]
