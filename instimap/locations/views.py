@@ -110,7 +110,7 @@ def get_shortest_path(request):
     # object.update()
     strt = start
     graph = object.graph(end, start)
-    if start is not None and end is not None:
+    if start is not None and end is not None and start is not '' and end is not '':
         try:
             start = int(start)
         except ValueError:
