@@ -73,6 +73,7 @@ class Location(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     str_id = models.CharField(max_length=100, editable=False, null=True)
     time_of_creation = models.DateTimeField(auto_now_add=True)
+    images = models.ImageField(upload_to="locations/", blank=True, null=True)
 
     name = models.CharField(max_length=150)
     short_name = models.CharField(max_length=80, blank=True, null=True)
