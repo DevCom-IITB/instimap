@@ -104,13 +104,16 @@ def get_shortest_path(request):
         request2 = HttpRequest()
         request2.data2 = data2
         # start = fn_nearest_points(request2)[0]["name"]
+    print(start)
+    # print(end)
     end = request.data["destination"]
     dest = end
+    print(dest)
     object = handle_entry()
     # object.update()
     strt = start
     graph = object.graph(end, start)
-    if start is not None and end is not None:
+    if start is not None and end is not None and start is not '' and end is not '':
         try:
             start = int(start)
         except ValueError:
@@ -160,7 +163,7 @@ def get_shortest_path(request):
 
             return Response(loc_path)
         return Response(data={"detail": "No path found"})
-    return Response()
+    return Response(data={"detail" : "Query was null"})
 
 
 """

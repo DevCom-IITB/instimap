@@ -26,6 +26,7 @@ class UpdateAdjList:
 
     @staticmethod
     def calculate_distance(loc1, loc2):
+        # print(f"calculating distance between{loc1} and {loc2}")
         x_loc1 = loc1.pixel_x if loc1.pixel_x else 0
         y_loc1 = loc1.pixel_y if loc1.pixel_y else 0
         x_loc2 = loc2.pixel_x if loc2.pixel_x else 0
@@ -39,6 +40,9 @@ class UpdateAdjList:
 
     def add_conns(self, loc1, connections=[]):
         new_data = self.adj_list.copy()
+        # print(new_data)
+        # print(str(loc1))
+        # print(connections)
         for loc2 in connections:
             if loc2:
                 distance = UpdateAdjList.calculate_distance(loc1, loc2)
@@ -87,3 +91,10 @@ class UpdateAdjList:
 
         with open(self.adj_list_path, "w") as f:
             f.write(str(new_data))
+
+# if __name__ == "__main__":
+#     update = UpdateAdjList()
+#     adj_list = update.load_adj_list()
+#     for loc1 in adj_list:
+#         for loc2 in loc1:
+

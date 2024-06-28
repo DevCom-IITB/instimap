@@ -484,12 +484,14 @@ class handle_entry:
 
 
 def dijkstra(graph, start, goal):
+    # print("reached dijkstra")
     shortest_dist = {}
     track_pred = {}
     unseenNodes = graph
     inf = sys.maxsize
     track_path = []
     for node in unseenNodes:
+        # print("checking node" + str(node))
         shortest_dist[node] = inf
     shortest_dist[start] = 0
     while unseenNodes:
@@ -506,9 +508,12 @@ def dijkstra(graph, start, goal):
                 track_pred[child_node] = min_distNode
         unseenNodes.pop(min_distNode)
     currentNode = goal
+    # print("exited 1st loop")
+    
     while currentNode != start:
         try:
             track_path.insert(0, currentNode)
+            # print(currentNode)
             currentNode = track_pred[currentNode]
         except KeyError:
             print(f"Path is not reachable start : {start}, end: {goal}")

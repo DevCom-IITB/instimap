@@ -21,6 +21,8 @@ class LocationSerializer(serializers.ModelSerializer):
             "lat",
             "lng",
             "reusable",
+            "eatery",
+            "hostel",
         )
 
 

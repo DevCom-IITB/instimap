@@ -97,15 +97,23 @@ class Location(models.Model):
     hostel = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):  # pylint: disable =W0222
+        # print("reached save function")
+        print(vars(self))
+        update = UpdateAdjList()
         self.str_id = get_url_friendly(self.short_name)
+        adj_list = update.load_adj_list()
         if self.connected_locs:
             adj_data = self.connected_locs.split(",")
+        elif update.get_location_name(self) in adj_list:
+            adj_data = list(adj_list[update.get_location_name(self)].keys())
         else:
             # self.connected_locs = []
             adj_data = []
-
+        # print(adj_data)
         if Location.objects.filter(name=self.name).exists():
+            # print("reached 110")
             old_instance = Location.objects.filter(name=self.name).first()
+            print(old_instance)
             if old_instance.connected_locs:
                 old_instance_adj = old_instance.connected_locs.split(",")
             else:
@@ -115,10 +123,15 @@ class Location(models.Model):
 
             UpdatedConnectionsLoc = []
             for loc in adj_data:
+                print(loc)
                 if loc:
                     loc_object = Location.objects.filter(name=loc).first()
+                    if loc_object is None:
+                        loc_object = Location.objects.filter(name=("Node"+str(loc))).first()
                     UpdatedConnectionsLoc.append(loc_object)
-            UpdateAdjList().add_conns(
+                    # print("here")
+                    # print(UpdatedConnectionsLoc)
+            update.add_conns(
                 self, UpdatedConnectionsLoc
             )  # Accounts for coordinates change also.
 
@@ -128,7 +141,7 @@ class Location(models.Model):
                     deleted_loc = Location.objects.filter(name=loc).first()
                     if deleted_loc is not None:
                         deleted_connections_locs.append(deleted_loc)
-                UpdateAdjList().delete_connections(self, deleted_connections_locs)
+                update.delete_connections(self, deleted_connections_locs)
 
         else:
             if adj_data:
@@ -137,7 +150,7 @@ class Location(models.Model):
                     Location.objects.filter(name=x).first() for x in locs if x
                 ]
 
-                UpdateAdjList().add_conns(self, connections)
+                update.add_conns(self, connections)
 
         super().save(*args, **kwargs)
 
