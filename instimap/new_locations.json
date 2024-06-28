@@ -18211,7 +18211,7 @@
             "pixel_y" : 1038,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }
@@ -18231,7 +18231,7 @@
             "pixel_y" : 1804,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }
@@ -18251,7 +18251,7 @@
             "pixel_y" : 1937,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }
@@ -18271,7 +18271,7 @@
             "pixel_y" : 1455,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }
@@ -18291,7 +18291,7 @@
             "pixel_y" : 979,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }
@@ -18311,7 +18311,7 @@
             "pixel_y" : 1011,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }
@@ -18331,7 +18331,7 @@
             "pixel_y" : 970,
             "lat" : null,
             "lng" : null,
-            "reusable" : false,
+            "reusable" : true,
             "eatery": true,
             "hostel": false
         }

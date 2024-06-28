@@ -113,7 +113,7 @@ class Location(models.Model):
         if Location.objects.filter(name=self.name).exists():
             # print("reached 110")
             old_instance = Location.objects.filter(name=self.name).first()
-            print(old_instance)
+            # print(old_instance)
             if old_instance.connected_locs:
                 old_instance_adj = old_instance.connected_locs.split(",")
             else:
